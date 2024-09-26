@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Game extends Model
+class UsersScore extends Model
 {
+    protected $table = 'users_score';
     public $timestamps = false;
+    use HasFactory;
 
     protected $fillable = [
-        'link',
-        'link_for_owner',
-        'owner_id',
-        'questions_list_id',
-        'stage'
+        'user_id',
+        'game_id',
+        'question',
+        'score',
     ];
-
-    use HasFactory;
 }

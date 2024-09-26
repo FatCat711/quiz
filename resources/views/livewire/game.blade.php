@@ -1,4 +1,4 @@
-{{-- <div wire:poll.10s> --}}
+{{-- <div wire:poll.1s> --}}
 <div>
     <div class="container d-flex flex-column justify-content-center align-items-center vh-100">
         @if ($show_question)
@@ -9,30 +9,21 @@
                 {{ $text }}
             </div>
 
+        <form>
             <div class="row text-center">
-                <div class="col-6">
-                    <div class="square yellow mx-auto">
-                        <h1 class="text-center">A</h1>
+                @foreach($answers as $answer)
+                    <div class="form-check">
+                        <input wire:model="checkbox_answers" class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios{{$answer->id}}" value="{{$answer->answer}}">
+                        <label class="form-check-label" for="optionsRadios{{$answer->id}}">
+                            {{$answer->answer}}
+                        </label>
                     </div>
-                </div>
-                <div class="col-6">
-                    <div class="square blue mx-auto">
-                        <h1 class="text-center">B</h1>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="square red mt-5 mx-auto">
-                        <h1 class="text-center">C</h1>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="square green mt-5 mx-auto">
-                        <h1 class="text-center">D</h1>
-                    </div>
-                </div>
+                @endforeach
+                <a wire:click="sendAnswer()" class="btn btn-outline-success mt-4 mx-auto"> Ответить </a>
             </div>
+        </form>
         @else
-            <h1>Стадия ожидания</h1>
+            <h1>Стадия отдыха</h1>
         @endif
 
     </div>

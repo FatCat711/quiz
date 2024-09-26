@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('answers', function (Blueprint $table) {
-            $table->id();
-
-            $table->string('answer');
-            $table->boolean('right');
-            $table->foreignId('question_id')->constrained('questions')->cascadeOnDelete();
+        Schema::table('games', function (Blueprint $table) {
+            $table->boolean('chill_stage')->default(true);
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('answers');
+        Schema::table('games', function (Blueprint $table) {
+            //
+        });
     }
 };
