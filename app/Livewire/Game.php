@@ -16,6 +16,7 @@ class Game extends Component
     public $game;
     public $show_question;
     public $answers;
+    public $show_button;
     public $checkbox_answers = [];
 
     public function mount($game)
@@ -43,6 +44,11 @@ class Game extends Component
             $this->answers = $answers;
 
             $this->show_question = true;
+            if ($this->checkTime($this->game->time_start) < 30){
+                $this->show_button = true;
+            } else {
+                $this->show_button = false;
+            }
         }
         // dd($show_question);
         return view('livewire.game', [
@@ -53,21 +59,26 @@ class Game extends Component
     public function sendAnswer(){
         if ($this->checkbox_answers){
             $user = Auth::user();
-            $user_score = UsersScore::where('user_id', $user->id)->get()->first();
-            if ($this->game->stage == $user_score->question){
-                $user_score->question = strval(intval($user_score->question) + 1);
-                $question_list = QuestionsList::where(['game_id' => $this->game->id, 'stage' => $this->game->stage])->get()->first();
-                $answer = Answer::where(['question_id' => $question_list->id, 'right' => 1])->get()->first();
-                if ($answer->answer == $this->checkbox_answers){
-                    $user_score->score = $user_score->score + 10;
+            $this->show_button = false;
+            $delta = $this->checkTime($this->game->time_start);
+            if ($delta < 30){
+                $user_score = UsersScore::where('user_id', $user->id)->get()->first();
+                if ($this->game->stage == $user_score->question){
+                    $user_score->question = strval(intval($user_score->question) + 1);
+                    $question_list = QuestionsList::where(['game_id' => $this->game->id, 'stage' => $this->game->stage])->get()->first();
+                    $answer = Answer::where(['question_id' => $question_list->id, 'right' => 1])->get()->first();
+                    if ($answer->answer == $this->checkbox_answers){
+                        $user_score->score = $user_score->score + (30 - $delta);
+                    }
+                    $user_score->save();
                 }
-                $user_score->save();
             }
         }
 
     }
 
-    private function checkTime(){
-
+    private function checkTime($time_start){
+        $time_now = date('d.m.Y H:i:s');
+        return strtotime($time_now) - strtotime($time_start);
     }
 }

@@ -24,11 +24,15 @@ class GameAdmin extends Component
 
     public function nextStage($chill_stage){
 //        dd($chill_stage);
+        $count = QuestionsList::where('game_id', $this->game->id)->get()->count();
+        if ($count == $this->game->stage){
+            redirect('/results/' . $this->game->id);
+        }
         if ($chill_stage){
             $game = Game::find($this->game->id);
             $game->stage = $game->stage + 1;
             $game->chill_stage = false;
-            $game->time_start = date('Y.m.d H:i:s');
+            $game->time_start = date('d.m.Y H:i:s');
             $game->save();
 //            dd(UsersScore::whereIn('question', [$game->stage-1])->get());
         } else {
