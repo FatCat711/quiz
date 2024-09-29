@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('games', function (Blueprint $table) {
-            $table->boolean('chill_stage')->default(true);
+        Schema::create('questions_lists', function (Blueprint $table) {
+            $table->id();
+            $table->string('stage');
         });
     }
 
@@ -21,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('games', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('questions_lists');
     }
 };

@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('questions_lists', function (Blueprint $table) {
-            $table->foreignId('game_id')->nullable()->constrained('games')->cascadeOnDelete();
-            $table->foreignId('question_id')->nullable()->constrained('questions');
-            $table->string('stage')->default('1');
+        Schema::table('games', function (Blueprint $table) {
+            $table->boolean('chill_stage')->default('1');
         });
     }
 
@@ -23,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('questions_lists', function (Blueprint $table) {
+        Schema::table('games', function (Blueprint $table) {
             //
         });
     }

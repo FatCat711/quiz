@@ -10,9 +10,13 @@
     <link href="https://bootswatch.com/5/sketchy/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        tr {
+            font-size: 25px;
+        }
+
         .square {
             width: 150px;
             height: 150px;
@@ -49,22 +53,53 @@
             margin-bottom: 4rem;
         }
 
-        .form-check-label:hover{
+        .form-check-label:hover {
             cursor: pointer;
         }
+
+        .timer__items {
+            display: flex;
+            font-size: 48px;
+        }
+
+        .timer__item {
+            position: relative;
+            min-width: 60px;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding-bottom: 15px;
+            text-align: center;
+        }
+
+        .timer__item::before {
+            content: attr(data-title);
+            display: block;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            font-size: 14px;
+        }
+
+        .timer__item:not(:last-child)::after {
+            content: ':';
+            position: absolute;
+            right: -15px;
+        }
     </style>
+
 </head>
 
 <body>
-<div class="container py-4">
-    @if (auth()->user())
-        user_id={{auth()->user()->id}}
-    @endif
-    @yield('content')
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    <div class="container py-4">
+        @if (auth()->user())
+            user_id={{ auth()->user()->id }}
+        @endif
+        @yield('content')
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
-</script>
+    </script>
 </body>
 
 </html>

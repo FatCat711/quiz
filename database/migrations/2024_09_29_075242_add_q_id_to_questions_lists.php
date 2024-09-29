@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('questions', function (Blueprint $table) {
-            $table->foreignId('questions_list_id')->constrained('questions_lists');
+        Schema::table('questions_lists', function (Blueprint $table) {
+            $table->foreignId('question_id')->constrained('questions');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('questions', function (Blueprint $table) {
-            $table->dropColumn('questions_list_id');
+        Schema::table('questions_lists', function (Blueprint $table) {
+            //
         });
     }
 };
