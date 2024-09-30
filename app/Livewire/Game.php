@@ -37,7 +37,7 @@ class Game extends Component
             $time_db = strtotime($this->game->time_start) + 30;
             $this->timer = date('Y-m-dTH:i:s', $time_db);
             $question_on_list = QuestionsList::where(['stage' => $stage])->first();
-            $question = Question::where('id', $question_on_list->id)->first();
+            $question = Question::where('id', $question_on_list->question_id)->first();
             //dd($question);
 
             $text = $question->question;
@@ -69,7 +69,7 @@ class Game extends Component
                 if ($this->game->stage == $user_score->question) {
                     $user_score->question = strval(intval($user_score->question) + 1);
                     $question_list = QuestionsList::where(['stage' => $this->game->stage])->get()->first();
-                    $answer = Answer::where(['question_id' => $question_list->id, 'right' => 1])->get()->first();
+                    $answer = Answer::where(['question_id' => $question_list->question_id, 'right' => 1])->get()->first();
                     if ($answer->answer == $this->checkbox_answers) {
                         $user_score->score = $user_score->score + (30 - $delta);
                     }

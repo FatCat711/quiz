@@ -2,8 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Game;
+use App\Models\QuestionsList;
 use Livewire\Component;
 
 class AdminPanel extends Component
@@ -26,7 +28,8 @@ class AdminPanel extends Component
     public function show_proector($question_id)
     {
         $game = Game::find($this->game->id);
-        $game->stage = $question_id;
+        $question_list = QuestionsList::where('question_id', $question_id)->first();
+        $game->stage = $question_list->stage;
         $game->save();
     }
 
@@ -43,5 +46,16 @@ class AdminPanel extends Component
         $game = Game::find($this->game->id);
         $game->chill_stage = true;
         $game->save();
+    }
+
+    public function delete_question($question_id){
+        $question_list = QuestionsList::where('question_id', $question_id)->first();
+        $question_list->delete();
+        $question = Question::find($question_id);
+        $question->delete();
+        $answers = Answer::where('question_id', $question_id)->get();
+        foreach ($answers as $answer){
+            $answer->delete();
+        }
     }
 }

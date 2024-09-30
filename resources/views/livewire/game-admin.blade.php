@@ -11,7 +11,7 @@
                         <div class="timer__item timer__seconds">00</div>
                     </div>
                 </div>
-                <p style="font-size: 50px" class="mb-4">Вопрос № {{ $question_id }}</p>
+                <p style="font-size: 50px" class="mb-4">Вопрос № {{ $game->stage }}</p>
                 <p style="font-size: 50px">{{ $text }}</p>
                 <hr>
                 <div class="w-100">

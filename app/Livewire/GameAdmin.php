@@ -51,7 +51,7 @@ class GameAdmin extends Component
 
         $question_on_list = QuestionsList::where(['stage' => $stage])->first();
 
-        $question = Question::where('id', $question_on_list->id)->first();
+        $question = Question::where('id', $question_on_list->question_id)->first();
         $this->question_id = $question->id;
 
         $text = $question->question;

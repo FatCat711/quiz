@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class QuestionsList extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     protected $table = 'questions_lists';
 }

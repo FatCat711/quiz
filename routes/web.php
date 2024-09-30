@@ -19,6 +19,8 @@ Route::get('/games/{game}/admin', [GameAdmin::class, 'show'])->name('game.admin.
 
 Route::get('/games/{game}/admin_panel', [AdminPanel::class, 'show'])->name('admin.panel.show');
 
+Route::post('/games/{game}/admin_panel', [AdminPanel::class, 'store'])->name('admin.panel.store');
+
 Route::get('register/{game}', [AuthController::class, 'register'])->name('register');
 
 Route::post('register/{game}', [AuthController::class, 'store']);
